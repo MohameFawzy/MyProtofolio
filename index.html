@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mohamed Fawzy — Junior SOC Analyst</title>
+
+<meta name="description"
+      content="Mohamed Fawzy — Junior SOC Analyst focused on SIEM, log analysis, incident investigation, threat detection and network security.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#080b10;
+    --panel:#0e131a;
+    --panel2:#121820;
+    --panel3:#171e27;
+
+    --line:#202a35;
+    --line2:#2b3744;
+
+    --text:#e8edf2;
+    --muted:#7f8b98;
+    --muted2:#a6b1bc;
+
+    --green:#35e0a1;
+    --green2:#1dbf83;
+
+    --amber:#f2ad3d;
+    --red:#ff5c6c;
+    --blue:#58a6ff;
+
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'IBM Plex Sans', sans-serif;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 50% 0%, rgba(53,224,161,.05), transparent 35%),
+        var(--bg);
+
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+
+    -webkit-font-smoothing:antialiased;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+::selection{
+    background:var(--green);
+    color:#03110b;
+}
+
+a{
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1080px, calc(100% - 40px));
+    margin:auto;
+    position:relative;
+}
+
+.mono{
+    font-family:var(--mono);
+}
+
+/* =========================
+   BACKBONE
+========================= */
+
+.backbone{
+    position:fixed;
+
+    left:50%;
+    top:0;
+    bottom:0;
+
+    width:2px;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            var(--line) 0 5px,
+            transparent 5px 11px
+        );
+
+    transform:translateX(-50%);
+
+    z-index:-1;
+}
+
+.backbone-fill{
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:0%;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            var(--green) 0 5px,
+            transparent 5px 11px
+        );
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.nav{
+    position:sticky;
+    top:0;
+
+    z-index:100;
+
+    background:rgba(8,11,16,.88);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(43,55,68,.65);
+}
+
+.nav-inner{
+    min-height:66px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-family:var(--mono);
+    font-weight:700;
+
+    color:var(--green);
+
+    font-size:14px;
+}
+
+.logo span{
+    color:var(--muted);
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+
+    font-family:var(--mono);
+    font-size:11px;
+}
+
+.nav-links a{
+    color:var(--muted);
+    text-decoration:none;
+
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:var(--green);
+}
+
+@media(max-width:700px){
+
+    .nav-links{
+        display:none;
+    }
+}
+
+/* =========================
+   HERO — CYBER PORTFOLIO
+========================= */
+.hero{
+    min-height:calc(100vh - 66px);
+    display:flex;
+    align-items:center;
+    padding:48px 0 36px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(53,224,161,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53,224,161,.035) 1px, transparent 1px);
+    background-size:36px 36px;
+    pointer-events:none;
+    opacity:.65;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:560px;
+    height:560px;
+    right:-220px;
+    top:50%;
+    transform:translateY(-50%);
+    border:1px solid rgba(53,224,161,.08);
+    border-radius:50%;
+    box-shadow:0 0 0 80px rgba(53,224,161,.018), 0 0 0 160px rgba(53,224,161,.012);
+    pointer-events:none;
+}
+
+.hero-layout{
+    width:min(1180px, calc(100% - 40px));
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1.08fr;
+    gap:42px;
+    align-items:center;
+    position:relative;
+    z-index:1;
+}
+
+.hero-left{
+    min-width:0;
+}
+
+.terminal-prompt{
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:13px;
+    margin-bottom:22px;
+    opacity:.95;
+}
+
+.hero h1{
+    margin:0;
+    font-family:var(--mono);
+    font-size:clamp(46px,6.3vw,78px);
+    line-height:.98;
+    letter-spacing:-.065em;
+    color:#fff;
+}
+
+.hero h1 .accent{
+    display:block;
+    color:var(--green);
+}
+
+.hero-role{
+    display:inline-flex;
+    margin-top:28px;
+    padding:11px 20px;
+    border:1px solid rgba(53,224,161,.55);
+    border-radius:4px;
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:clamp(13px,1.6vw,18px);
+    background:rgba(14,19,26,.72);
+    min-height:auto;
+}
+
+.cursor{
+    display:inline-block;
+    width:8px;
+    height:1em;
+    margin-left:5px;
+    vertical-align:-2px;
+    background:var(--amber);
+    animation:blink 1s step-end infinite;
+}
+
+.hero-description{
+    max-width:600px;
+    margin:27px 0 0;
+    color:#c5ced7;
+    font-size:15px;
+    line-height:1.9;
+}
+
+.hero-description .hi{
+    color:var(--green);
+    font-family:var(--mono);
+}
+
+.hero-actions{
+    justify-content:flex-start;
+    margin-top:25px;
+}
+.hero-actions .btn{
+    min-width:150px;
+}
+@media(max-width:900px){
+    .hero-actions{justify-content:center;}
+}
+
+.hero-capabilities{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+}
+
+.hero-capability{
+    min-height:112px;
+    padding:14px 8px;
+    border:1px solid rgba(53,224,161,.32);
+    background:rgba(14,19,26,.72);
+    border-radius:4px;
+    text-align:center;
+}
+
+.hero-capability-icon{
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:26px;
+    line-height:1;
+    margin-bottom:13px;
+}
+
+.hero-capability strong{
+    display:block;
+    color:#dce5eb;
+    font-family:var(--mono);
+    font-size:10px;
+    line-height:1.55;
+}
+
+.hero-mission{
+    margin-top:22px;
+    padding:10px 14px;
+    border:1px solid var(--line2);
+    border-left:2px solid var(--green);
+    background:rgba(14,19,26,.7);
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:11px;
+}
+
+.hero-right{
+    position:relative;
+    min-width:0;
+}
+
+.hero-photo-frame{
+    position:relative;
+    min-height:610px;
+    border:1px solid rgba(53,224,161,.8);
+    border-radius:5px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 58% 38%, rgba(53,224,161,.18), transparent 28%),
+        radial-gradient(circle at 75% 70%, rgba(88,166,255,.08), transparent 34%),
+        linear-gradient(135deg,#05090c 0%,#07120f 48%,#05090c 100%);
+    clip-path:polygon(0 0, 96% 0, 100% 5%, 100% 100%, 4% 100%, 0 96%);
+}
+
+.hero-photo-frame::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(53,224,161,.11), transparent 38%),
+        linear-gradient(rgba(53,224,161,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53,224,161,.05) 1px, transparent 1px);
+    background-size:auto, 28px 28px, 28px 28px;
+    z-index:1;
+    pointer-events:none;
+}
+
+.hero-photo{
+    position:absolute;
+    left:50%;
+    bottom:-1%;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center bottom;
+    transform:translateX(-50%);
+    filter:saturate(.92) contrast(1.08) brightness(.92) drop-shadow(0 0 22px rgba(53,224,161,.38));
+    z-index:2;
+}
+
+.hero-photo-overlay{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    background:
+        linear-gradient(90deg, rgba(3,10,8,.24), transparent 42%, rgba(3,10,8,.16)),
+        radial-gradient(circle at 50% 50%, transparent 45%, rgba(3,10,8,.25) 100%);
+    pointer-events:none;
+}
+
+.scanlines{
+    position:absolute;
+    inset:0;
+    z-index:4;
+    background:repeating-linear-gradient(to bottom, transparent 0 5px, rgba(53,224,161,.035) 6px 7px);
+    pointer-events:none;
+}
+
+.hud{
+    position:absolute;
+    z-index:5;
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:10px;
+    line-height:1.8;
+    text-shadow:0 0 8px rgba(53,224,161,.3);
+}
+
+.hud-top{
+    top:28px;
+    right:28px;
+}
+
+.hud-bottom{
+    bottom:28px;
+    left:28px;
+}
+
+.events-chart{
+    position:absolute;
+    right:28px;
+    bottom:36px;
+    z-index:4;
+    width:210px;
+    height:100px;
+    opacity:.8;
+}
+
+.events-chart span{
+    display:inline-block;
+    width:5px;
+    margin-right:3px;
+    vertical-align:bottom;
+    background:var(--green);
+    opacity:.7;
+}
+
+.status-online{
+    position:absolute;
+    right:26px;
+    bottom:24px;
+    z-index:6;
+    padding:8px 13px;
+    border:1px solid var(--green);
+    background:rgba(5,12,9,.9);
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:10px;
+}
+
+.status-online::before{
+    content:"";
+    display:inline-block;
+    width:8px;
+    height:8px;
+    margin-right:8px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 10px rgba(53,224,161,.7);
+}
+
+.hero-tools{
+    margin-top:14px;
+    padding:14px 18px;
+    border:1px solid var(--line);
+    background:rgba(14,19,26,.88);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:14px 22px;
+}
+
+.hero-tools-label{
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:10px;
+    margin-right:auto;
+}
+
+.hero-tool{
+    color:#c8d1d9;
+    font-family:var(--mono);
+    font-size:10px;
+}
+
+@media(max-width:900px){
+    .hero-layout{
+        grid-template-columns:1fr;
+        gap:28px;
+    }
+    .hero-left{
+        text-align:center;
+    }
+    .hero-description{
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .hero-capabilities{
+        max-width:650px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .hero-mission{
+        text-align:left;
+    }
+    .hero-right{
+        max-width:700px;
+        width:100%;
+        margin:auto;
+    }
+    .hero-photo-frame{
+        min-height:560px;
+    }
+}
+
+@media(max-width:600px){
+    .hero{
+        padding:55px 0 30px;
+    }
+    .hero-layout{
+        width:min(100% - 28px,1180px);
+    }
+    .hero h1{
+        font-size:clamp(40px,13vw,64px);
+    }
+    .hero-capabilities{
+        grid-template-columns:1fr 1fr;
+    }
+    .hero-photo-frame{
+        min-height:520px;
+    }
+    .events-chart,.hud-top,.threat-panel{
+        display:none;
+    }
+   
+.cyber-grid-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background-image:
+        linear-gradient(rgba(53,224,161,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53,224,161,.045) 1px, transparent 1px);
+    background-size:28px 28px;
+    pointer-events:none;
+}
+
+.threat-panel{
+    position:absolute;
+    top:24px;
+    right:22px;
+    z-index:5;
+    width:190px;
+    padding:13px 14px;
+    border:1px solid rgba(53,224,161,.42);
+    background:rgba(5,12,10,.78);
+    backdrop-filter:blur(5px);
+    color:#b9c8c1;
+    font-family:var(--mono);
+    font-size:9px;
+    line-height:2;
+}
+
+.threat-panel .panel-label{
+    color:var(--green);
+    margin-bottom:5px;
+    letter-spacing:.08em;
+}
+
+.threat-panel b{
+    float:right;
+    color:#fff;
+}
+
+.dot{
+    display:inline-block;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    margin-right:6px;
+}
+.dot.red{background:var(--red);}
+.dot.amber{background:var(--amber);}
+.dot.green-dot{background:var(--green);}
+
+ .hero-tools{
+        justify-content:center;
+    }
+    .hero-tools-label{
+        width:100%;
+        text-align:center;
+    }
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions{
+    margin-top:32px;
+
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:145px;
+
+    padding:12px 18px;
+
+    border-radius:4px;
+
+    text-decoration:none;
+
+    font-family:var(--mono);
+
+    font-size:11px;
+
+    transition:.2s;
+
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:var(--green);
+
+    color:#04130d;
+
+    border:1px solid var(--green);
+
+    font-weight:700;
+}
+
+.btn-primary:hover{
+    background:#58edb5;
+    transform:translateY(-2px);
+}
+
+.btn-secondary{
+    border:1px solid var(--line2);
+
+    background:var(--panel);
+
+    color:#d4dce3;
+}
+
+.btn-secondary:hover{
+    border-color:var(--green);
+    color:var(--green);
+
+    transform:translateY(-2px);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+    padding:90px 0;
+}
+
+.section-header{
+    margin-bottom:25px;
+
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.section-number{
+    color:var(--green);
+
+    font-family:var(--mono);
+
+    font-size:11px;
+
+    letter-spacing:.12em;
+
+    margin-bottom:7px;
+}
+
+.section-title{
+    font-family:var(--mono);
+
+    font-size:25px;
+
+    color:#fff;
+}
+
+.section-subtitle{
+    color:var(--muted);
+
+    font-family:var(--mono);
+
+    font-size:11px;
+}
+
+.panel{
+    background:rgba(14,19,26,.94);
+
+    border:1px solid var(--line);
+
+    border-radius:6px;
+
+    padding:30px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.panel::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:70px;
+    height:2px;
+
+    background:var(--green);
+}
+
+.panel::after{
+    content:"";
+
+    position:absolute;
+
+    bottom:0;
+    right:0;
+
+    width:70px;
+    height:2px;
+
+    background:var(--amber);
+}
+
+/* =========================
+   ABOUT ME
+========================= */
+.about-grid{
+    display:grid;
+    grid-template-columns:1.45fr .75fr;
+    gap:14px;
+}
+.about-copy h3{
+    margin:14px 0 14px;
+    font-family:var(--mono);
+    color:#fff;
+    font-size:19px;
+}
+.about-copy p{
+    color:var(--muted2);
+    font-size:14px;
+    line-height:1.9;
+    margin-top:10px;
+}
+.about-terminal{
+    color:var(--green);
+    font-family:var(--mono);
+    font-size:11px;
+}
+.about-stats{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+}
+.about-stat{
+    padding:15px;
+    background:var(--panel2);
+    border:1px solid var(--line);
+    border-left:2px solid var(--green);
+}
+.about-stat span{
+    display:block;
+    color:var(--muted);
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.1em;
+    margin-bottom:5px;
+}
+.about-stat strong{
+    color:#e5edf2;
+    font-family:var(--mono);
+    font-size:11px;
+}
+@media(max-width:800px){
+    .about-grid{grid-template-columns:1fr;}
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-grid{
+    display:grid;
+
+    grid-template-columns:1.4fr .8fr;
+
+    gap:25px;
+}
+
+.profile-text p{
+    color:#c5ced7;
+
+    font-size:15px;
+}
+
+.profile-text p+p{
+    margin-top:14px;
+}
+
+.profile-terminal{
+    background:#090d12;
+
+    border:1px solid var(--line);
+
+    border-radius:5px;
+
+    padding:18px;
+
+    font-family:var(--mono);
+
+    font-size:12px;
+}
+
+.terminal-top{
+    display:flex;
+    gap:6px;
+
+    margin-bottom:16px;
+}
+
+.terminal-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--line2);
+}
+
+.terminal-line{
+    margin:7px 0;
+}
+
+.prompt-char{
+    color:var(--green);
+}
+
+.command{
+    color:#d8e0e7;
+}
+
+.output{
+    color:var(--muted);
+}
+
+.success{
+    color:var(--green);
+}
+
+@media(max-width:800px){
+
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================
+   SOC SKILLS
+========================= */
+
+.skills-grid{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+}
+
+.skill-card{
+    padding:20px;
+
+    background:var(--panel);
+
+    border:1px solid var(--line);
+
+    border-radius:5px;
+
+    transition:.25s;
+}
+
+.skill-card:hover{
+    border-color:var(--line2);
+
+    transform:translateY(-3px);
+}
+
+.skill-icon{
+    color:var(--green);
+
+    font-family:var(--mono);
+
+    font-size:17px;
+
+    margin-bottom:13px;
+}
+
+.skill-card h3{
+    font-family:var(--mono);
+
+    font-size:14px;
+
+    color:#fff;
+
+    margin-bottom:8px;
+}
+
+.skill-card p{
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+@media(max-width:800px){
+
+    .skills-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .skills-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================
+   TOOLKIT
+========================= */
+
+.toolkit{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+}
+
+.tool{
+    padding:9px 13px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:4px;
+
+    font-family:var(--mono);
+
+    font-size:12px;
+
+    color:#cdd5dd;
+}
+
+.tool:hover{
+    border-color:var(--green);
+    color:var(--green);
+}
+
+/* =========================
+   SOC PROJECTS
+========================= */
+
+.project{
+    padding:26px 0;
+
+    border-bottom:1px dashed var(--line);
+}
+
+.project:first-child{
+    padding-top:0;
+}
+
+.project:last-child{
+    border-bottom:none;
+    padding-bottom:0;
+}
+
+.project-head{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.project-id{
+    font-family:var(--mono);
+
+    color:var(--green);
+
+    font-size:11px;
+
+    margin-bottom:5px;
+}
+
+.project h3{
+    font-family:var(--mono);
+
+    color:#fff;
+
+    font-size:17px;
+}
+
+.severity{
+    padding:5px 9px;
+
+    border:1px solid rgba(255,92,108,.3);
+
+    color:var(--red);
+
+    font-family:var(--mono);
+
+    font-size:10px;
+
+    border-radius:3px;
+
+    white-space:nowrap;
+}
+
+.project-desc{
+    margin-top:12px;
+
+    color:var(--muted2);
+
+    font-size:14px;
+
+    max-width:800px;
+}
+
+.project-grid{
+    margin-top:18px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+}
+
+.project-info{
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    padding:14px;
+
+    border-radius:4px;
+}
+
+.project-info b{
+    display:block;
+
+    margin-bottom:6px;
+
+    color:var(--amber);
+
+    font-family:var(--mono);
+
+    font-size:10px;
+
+    letter-spacing:.07em;
+
+    text-transform:uppercase;
+}
+
+.project-info span{
+    color:#c6d0d9;
+
+    font-size:13px;
+}
+
+@media(max-width:650px){
+
+    .project-grid{
+        grid-template-columns:1fr;
+    }
+
+    .project-head{
+        flex-direction:column;
+    }
+}
+
+/* =========================
+   INVESTIGATION FLOW
+========================= */
+
+.flow{
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:0;
+
+    margin-top:5px;
+}
+
+.flow-step{
+    position:relative;
+
+    padding:18px 10px;
+
+    text-align:center;
+
+    border-top:1px solid var(--line);
+
+    border-bottom:1px solid var(--line);
+
+    background:var(--panel);
+}
+
+.flow-step:not(:last-child)::after{
+    content:"›";
+
+    position:absolute;
+
+    right:-7px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    z-index:2;
+
+    color:var(--green);
+
+    font-family:var(--mono);
+
+    background:var(--bg);
+
+    padding:3px;
+}
+
+.flow-number{
+    font-family:var(--mono);
+
+    color:var(--green);
+
+    font-size:10px;
+}
+
+.flow-step strong{
+    display:block;
+
+    margin-top:5px;
+
+    color:#e0e7ed;
+
+    font-family:var(--mono);
+
+    font-size:11px;
+}
+
+@media(max-width:700px){
+
+    .flow{
+        grid-template-columns:1fr;
+        gap:7px;
+    }
+
+    .flow-step{
+        border:1px solid var(--line);
+    }
+
+    .flow-step:not(:last-child)::after{
+        content:"↓";
+
+        right:50%;
+
+        top:auto;
+        bottom:-12px;
+
+        transform:translateX(50%);
+    }
+}
+
+/* =========================
+   CERTIFICATIONS
+========================= */
+
+.cert-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px 25px;
+}
+
+.cert{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 0;
+
+    border-bottom:1px solid var(--line);
+
+    font-family:var(--mono);
+
+    font-size:13px;
+}
+
+.cert-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    flex-shrink:0;
+}
+
+.cert-name{
+    color:#d9e1e8;
+}
+
+.cert-source{
+    margin-left:auto;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+@media(max-width:650px){
+
+    .cert-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================
+   NETWORKING SUPPORT
+========================= */
+
+.network-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:10px;
+}
+
+.network-item{
+    padding:17px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:4px;
+
+    text-align:center;
+}
+
+.network-item strong{
+    display:block;
+
+    color:var(--amber);
+
+    font-family:var(--mono);
+
+    font-size:12px;
+
+    margin-bottom:5px;
+}
+
+.network-item span{
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+@media(max-width:700px){
+
+    .network-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-panel{
+    text-align:center;
+
+    padding:45px 25px;
+}
+
+.contact-panel h2{
+    font-family:var(--mono);
+
+    font-size:25px;
+
+    color:#fff;
+}
+
+.contact-panel p{
+    max-width:600px;
+
+    margin:12px auto 0;
+
+    color:var(--muted2);
+
+    font-size:14px;
+}
+
+.contact-links{
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.contact-link{
+    padding:11px 16px;
+
+    border:1px solid var(--line2);
+
+    border-radius:4px;
+
+    text-decoration:none;
+
+    font-family:var(--mono);
+
+    font-size:11px;
+
+    color:#d2dae1;
+
+    transition:.2s;
+}
+
+.contact-link:hover{
+    border-color:var(--green);
+
+    color:var(--green);
+
+    transform:translateY(-2px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:45px 0 70px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-family:var(--mono);
+
+    font-size:10px;
+
+    letter-spacing:.05em;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(25px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .container{
+        width:min(100% - 28px,1080px);
+    }
+
+    .hero{
+        padding:70px 0;
+    }
+
+    .section{
+        padding:65px 0;
+    }
+
+    .panel{
+        padding:22px;
+    }
+
+    .backbone{
+        left:14px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     BACKBONE
+========================= -->
+
+<div class="backbone">
+    <div class="backbone-fill" id="backboneFill"></div>
+</div>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav class="nav">
+
+    <div class="container nav-inner">
+
+        <div class="logo">
+            SOC<span> </span>MOHAMED
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#about">ABOUT</a>
+
+            <a href="#skills">SKILLS</a>
+
+            <a href="#projects">PROJECTS</a>
+
+            <a href="#certifications">CERTS</a>
+
+            <a href="#contact">CONTACT</a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+    <div class="hero-layout">
+        <div class="hero-left">
+            <div class="terminal-prompt">root@MohamedFawzy:~# </div>
+
+            <h1>
+                Hi, I'm
+                <span class="accent">Mohamed Fawzy</span>
+            </h1>
+
+            <div class="hero-role" id="roleLine"></div>
+
+            <p class="hero-description">
+                I help organizations secure their networks, monitor threats,
+                and investigate incidents using <span class="hi">SIEM</span>,
+                <span class="hi">Threat Hunting</span>, and <span class="hi">Security Monitoring</span>.
+            </p>
+
+            <div class="actions hero-actions">
+                <a href="#projects" class="btn btn-primary">VIEW PROJECTS →</a>
+                <a href="./images/Mohamed_Fawzy_CV (1).pdf" class="btn btn-secondary" download>DOWNLOAD CV</a>
+            </div>
+
+            <div class="hero-capabilities">
+                <div class="hero-capability">
+                    <div class="hero-capability-icon">◇</div>
+                    <strong>NETWORK<br>SECURITY</strong>
+                </div>
+                <div class="hero-capability">
+                    <div class="hero-capability-icon">⌁</div>
+                    <strong>SIEM &amp; LOG<br>ANALYSIS</strong>
+                </div>
+                <div class="hero-capability">
+                    <div class="hero-capability-icon">◎</div>
+                    <strong>THREAT<br>HUNTING</strong>
+                </div>
+                <div class="hero-capability">
+                    <div class="hero-capability-icon">&gt;_</div>
+                    <strong>AUTOMATION<br>&amp; SCRIPTING</strong>
+                </div>
+            </div>
+
+            <div class="hero-mission">&gt;&gt; Building a safer digital world, one log at a time. █</div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-photo-frame">
+                <img class="hero-photo" src="images/profile_cutout.png" alt="Mohamed Fawzy — Network &amp; Security Engineer">
+                <div class="hero-photo-overlay"></div>
+                <div class="scanlines"></div>
+
+                <div class="hud hud-top">
+                    &gt; nmap -sS 192.168.1.0/24<br>
+                    Scanning...<br>
+                    Host up 192.168.1.10<br>
+                    Host up 192.168.1.25<br>
+                    Host up 192.168.1.45<br>
+                    Scan complete.
+                </div>
+
+                <div class="hud hud-bottom">
+                    SYS_MONITOR / ACTIVE<br>
+                    EVENTS: 1,284<br>
+                    THREATS: 03<br>
+                    SIEM: ONLINE
+                </div>
+
+                <div class="events-chart" aria-hidden="true">
+                    <span style="height:25%"></span><span style="height:35%"></span><span style="height:18%"></span><span style="height:48%"></span><span style="height:38%"></span><span style="height:60%"></span><span style="height:45%"></span><span style="height:75%"></span><span style="height:55%"></span><span style="height:88%"></span><span style="height:66%"></span><span style="height:92%"></span><span style="height:72%"></span><span style="height:80%"></span><span style="height:50%"></span><span style="height:70%"></span><span style="height:42%"></span><span style="height:62%"></span>
+                </div>
+
+                <div class="cyber-grid-overlay"></div>
+
+                <div class="threat-panel">
+                    <div class="panel-label">THREAT MONITOR</div>
+                    <div><span class="dot red"></span> CRITICAL <b>05</b></div>
+                    <div><span class="dot amber"></span> HIGH <b>12</b></div>
+                    <div><span class="dot green-dot"></span> LOW <b>08</b></div>
+                </div>
+
+                <div class="status-online">STATUS: ONLINE</div>
+            </div>
+
+            <div class="hero-tools">
+                <span class="hero-tools-label">&gt;_ Tools &amp; Technologies</span>
+                <span class="hero-tool">FortiSIEM</span>
+                <span class="hero-tool">FortiAnalyzer</span>
+                <span class="hero-tool">Wireshark</span>
+                <span class="hero-tool">Python</span>
+                <span class="hero-tool">PowerShell</span>
+                <span class="hero-tool">Linux</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<main>
+
+
+<!-- =========================
+     ABOUT ME
+========================= -->
+<section class="section reveal" id="about">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <div class="section-number">01 / ABOUT ME</div>
+                <h2 class="section-title">Who I Am</h2>
+            </div>
+            <div class="section-subtitle">PERSONAL_OVERVIEW</div>
+        </div>
+
+        <div class="about-grid">
+            <div class="panel about-copy">
+                <div class="about-terminal">&gt; cat /etc/profile/mohamed_fawzy</div>
+                <h3>Network &amp; Security Engineer</h3>
+                <p>I’m a junior SOC-focused security professional with a strong foundation in networking, security monitoring and infrastructure.</p>
+                <p>I enjoy turning raw security telemetry into clear findings — analyzing logs, validating alerts, investigating suspicious activity and documenting what happened.</p>
+                <p>My current focus is building practical experience across SIEM, FortiSIEM, FortiAnalyzer, Windows Event Logs, threat hunting and incident investigation.</p>
+            </div>
+
+            <div class="panel about-stats">
+                <div class="about-stat"><span>FOCUS</span><strong>SOC / SIEM</strong></div>
+                <div class="about-stat"><span>STRENGTH</span><strong>NETWORKING</strong></div>
+                <div class="about-stat"><span>INTEREST</span><strong>THREAT HUNTING</strong></div>
+                <div class="about-stat"><span>APPROACH</span><strong>DETECT → INVESTIGATE → RESPOND</strong></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section class="section reveal" id="profile">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    01 / PROFILE
+                </div>
+
+                <h2 class="section-title">
+                    Security Operations
+                </h2>
+
+            </div>
+
+            <div class="section-subtitle">
+                WHOAMI
+            </div>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+
+            <div class="panel profile-text">
+
+                <p>
+                    I'm a junior SOC-focused security professional
+                    with a strong foundation in networking,
+                    security monitoring and infrastructure.
+                </p>
+
+                <p>
+                    My main focus is understanding what is happening
+                    inside an environment through logs and security
+                    events — identifying suspicious activity,
+                    investigating alerts and connecting events
+                    together to understand the bigger picture.
+                </p>
+
+                <p>
+                    I've been developing hands-on knowledge across
+                    SIEM, FortiAnalyzer, FortiSIEM, Windows event logs,
+                    network security and incident investigation.
+                </p>
+
+            </div>
+
+
+            <div class="profile-terminal">
+
+                <div class="terminal-top">
+
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+
+                </div>
+
+                <div class="terminal-line">
+                    <span class="prompt-char">$</span>
+                    <span class="command">whoami</span>
+                </div>
+
+                <div class="terminal-line output">
+                    junior_soc_analyst
+                </div>
+
+                <div class="terminal-line">
+                    <span class="prompt-char">$</span>
+                    <span class="command">focus</span>
+                </div>
+
+                <div class="terminal-line output">
+                    SIEM / Detection / Investigation
+                </div>
+
+                <div class="terminal-line">
+                    <span class="prompt-char">$</span>
+                    <span class="command">status</span>
+                </div>
+
+                <div class="terminal-line success">
+                    ACTIVE
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SOC SKILLS
+========================= -->
+
+<section class="section reveal" id="skills">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    02 / SOC CAPABILITIES
+                </div>
+
+                <h2 class="section-title">
+                    Security Skills
+                </h2>
+
+            </div>
+
+            <div class="section-subtitle">
+                CORE_CAPABILITIES
+            </div>
+
+        </div>
+
+
+        <div class="skills-grid">
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    [01]
+                </div>
+
+                <h3>
+                    SIEM
+                </h3>
+
+                <p>
+                    Security event collection,
+                    correlation, dashboards,
+                    alert investigation and monitoring.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    [02]
+                </div>
+
+                <h3>
+                    LOG ANALYSIS
+                </h3>
+
+                <p>
+                    Analyze Windows, network and
+                    security logs to identify
+                    abnormal activity.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    [03]
+                </div>
+
+                <h3>
+                    ALERT TRIAGE
+                </h3>
+
+                <p>
+                    Validate alerts, identify false
+                    positives and prioritize suspicious
+                    security events.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    [04]
+                </div>
+
+                <h3>
+                    INCIDENT INVESTIGATION
+                </h3>
+
+                <p>
+                    Investigate suspicious activity
+                    by correlating processes, users,
+                    IPs, events and timestamps.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    [05]
+                </div>
+
+                <h3>
+                    IOC ANALYSIS
+                </h3>
+
+                <p>
+                    Work with IP addresses,
+                    domains, hashes, processes
+                    and other indicators of compromise.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    [06]
+                </div>
+
+                <h3>
+                    THREAT HUNTING
+                </h3>
+
+                <p>
+                    Search security telemetry for
+                    suspicious patterns that may
+                    not have triggered an alert.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TOOLKIT
+========================= -->
+
+<section class="section reveal">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    03 / TOOLKIT
+                </div>
+
+                <h2 class="section-title">
+                    Security Stack
+                </h2>
+
+            </div>
+
+            <div class="section-subtitle">
+                TOOLS_AND_TECHNOLOGIES
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="toolkit">
+
+                <span class="tool">FortiSIEM</span>
+
+                <span class="tool">FortiAnalyzer</span>
+
+                <span class="tool">FortiGate</span>
+
+                <span class="tool">Windows Event Logs</span>
+
+                <span class="tool">Sysmon</span>
+
+                <span class="tool">SIEM</span>
+
+                <span class="tool">IOC Analysis</span>
+
+                <span class="tool">Incident Response</span>
+
+                <span class="tool">Threat Hunting</span>
+
+                <span class="tool">Network Security</span>
+
+                <span class="tool">Wireshark</span>
+
+                <span class="tool">Cisco Packet Tracer</span>
+
+                <span class="tool">EVE-NG</span>
+
+                <span class="tool">VMware</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     SOC PROJECTS
+========================= -->
+
+<section class="section reveal" id="projects">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    05 / INVESTIGATIONS
+                </div>
+
+                <h2 class="section-title">
+                    SOC Projects
+                </h2>
+
+            </div>
+
+            <div class="section-subtitle">
+                CASE_FILES
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+
+            <!-- PROJECT 01 -->
+
+            <article class="project">
+
+                <div class="project-head">
+
+                    <div>
+
+                        <div class="project-id">
+                            INCIDENT #001
+                        </div>
+
+                        <h3>
+                            Suspicious PowerShell Activity
+                        </h3>
+
+                    </div>
+
+                    <span class="severity">
+                        HIGH
+                    </span>
+
+                </div>
+
+
+                <p class="project-desc">
+
+                    Investigated suspicious PowerShell execution
+                    by analyzing Windows security telemetry,
+                    process activity and related events to
+                    determine whether the activity was malicious.
+
+                </p>
+
+
+                <div class="project-grid">
+
+                    <div class="project-info">
+
+                        <b>Detection</b>
+
+                        <span>
+                            Suspicious PowerShell execution
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Investigation</b>
+
+                        <span>
+                            Process → User → Host → Timeline
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Tools</b>
+
+                        <span>
+                            SIEM · Windows Logs · Sysmon
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Result</b>
+
+                        <span>
+                            Identified suspicious execution
+                            and investigated the activity chain.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 02 -->
+
+            <article class="project">
+
+                <div class="project-head">
+
+                    <div>
+
+                        <div class="project-id">
+                            INCIDENT #002
+                        </div>
+
+                        <h3>
+                            Web Shell Investigation
+                        </h3>
+
+                    </div>
+
+                    <span class="severity">
+                        HIGH
+                    </span>
+
+                </div>
+
+
+                <p class="project-desc">
+
+                    Investigated suspicious web-server activity
+                    by analyzing HTTP requests, IIS logs and
+                    process execution to identify potential
+                    web-shell behavior.
+
+                </p>
+
+
+                <div class="project-grid">
+
+                    <div class="project-info">
+
+                        <b>Detection</b>
+
+                        <span>
+                            Suspicious HTTP POST activity
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Evidence</b>
+
+                        <span>
+                            IIS logs · URI · HTTP method
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Analysis</b>
+
+                        <span>
+                            Request → Process → Web Shell
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Result</b>
+
+                        <span>
+                            Built an investigation timeline
+                            from web-server telemetry.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 03 -->
+
+            <article class="project">
+
+                <div class="project-head">
+
+                    <div>
+
+                        <div class="project-id">
+                            INCIDENT #003
+                        </div>
+
+                        <h3>
+                            Brute Force Detection
+                        </h3>
+
+                    </div>
+
+                    <span class="severity">
+                        MEDIUM
+                    </span>
+
+                </div>
+
+
+                <p class="project-desc">
+
+                    Analyzed authentication events to identify
+                    repeated failed login attempts and determine
+                    whether the activity represented a potential
+                    brute-force attack.
+
+                </p>
+
+
+                <div class="project-grid">
+
+                    <div class="project-info">
+
+                        <b>Detection</b>
+
+                        <span>
+                            Repeated authentication failures
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Indicators</b>
+
+                        <span>
+                            Source IP · Account · Timestamp
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Tools</b>
+
+                        <span>
+                            SIEM · Windows Event Logs
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Result</b>
+
+                        <span>
+                            Correlated authentication events
+                            to identify suspicious login behavior.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 04 -->
+
+            <article class="project">
+
+                <div class="project-head">
+
+                    <div>
+
+                        <div class="project-id">
+                            INCIDENT #004
+                        </div>
+
+                        <h3>
+                            IOC & Malware Investigation
+                        </h3>
+
+                    </div>
+
+                    <span class="severity">
+                        HIGH
+                    </span>
+
+                </div>
+
+
+                <p class="project-desc">
+
+                    Investigated suspicious files and indicators
+                    by correlating hashes, filenames, processes,
+                    network connections and host activity.
+
+                </p>
+
+
+                <div class="project-grid">
+
+                    <div class="project-info">
+
+                        <b>Indicators</b>
+
+                        <span>
+                            MD5 · SHA256 · IP · Domain
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Host Analysis</b>
+
+                        <span>
+                            Process · File · User · Parent Process
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Correlation</b>
+
+                        <span>
+                            SIEM events + endpoint telemetry
+                        </span>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <b>Result</b>
+
+                        <span>
+                            Connected multiple indicators
+                            to reconstruct suspicious activity.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CERTIFICATIONS
+========================= -->
+
+<section class="section reveal" id="certifications">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    06 / EDUCATION
+                </div>
+
+                <h2 class="section-title">
+                    Certifications & Training
+                </h2>
+
+            </div>
+
+            <div class="section-subtitle">
+                LEARNING_PATH
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="cert-grid">
+
+
+                <div class="cert">
+
+                    <span class="cert-dot"></span>
+
+                    <span class="cert-name">
+                        SOC — FortiAnalyzer & FortiSIEM
+                    </span>
+
+                    <span class="cert-source">
+                        TRAINING
+                    </span>
+
+                </div>
+
+
+                <div class="cert">
+
+                    <span class="cert-dot"></span>
+
+                    <span class="cert-name">
+                        Fortinet Cybersecurity
+                    </span>
+
+                    <span class="cert-source">
+                        NTI
+                    </span>
+
+                </div>
+
+
+                <div class="cert">
+
+                    <span class="cert-dot"></span>
+
+                    <span class="cert-name">
+                        CCNA
+                    </span>
+
+                    <span class="cert-source">
+                        NTI
+                    </span>
+
+                </div>
+
+
+                <div class="cert">
+
+                    <span class="cert-dot"></span>
+
+                    <span class="cert-name">
+                        IT Technical Support
+                    </span>
+
+                    <span class="cert-source">
+                        TIEC
+                    </span>
+
+                </div>
+
+
+                <div class="cert">
+
+                    <span class="cert-dot"></span>
+
+                    <span class="cert-name">
+                        MCSA
+                    </span>
+
+                    <span class="cert-source">
+                        SELF-PACED
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     NETWORKING
+========================= -->
+
+<section class="section reveal">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    07 / FOUNDATION
+                </div>
+
+                <h2 class="section-title">
+                    Network Security Foundation
+                </h2>
+
+            </div>
+
+            <div class="section-subtitle">
+                SUPPORTING_KNOWLEDGE
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="network-grid">
+
+                <div class="network-item">
+
+                    <strong>VLAN</strong>
+
+                    <span>
+                        Network Segmentation
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>OSPF</strong>
+
+                    <span>
+                        Dynamic Routing
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>ACL</strong>
+
+                    <span>
+                        Traffic Control
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>NAT</strong>
+
+                    <span>
+                        Address Translation
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>TCP/IP</strong>
+
+                    <span>
+                        Network Fundamentals
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>FORTIGATE</strong>
+
+                    <span>
+                        Firewall Security
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>WIRESHARK</strong>
+
+                    <span>
+                        Traffic Analysis
+                    </span>
+
+                </div>
+
+
+                <div class="network-item">
+
+                    <strong>EVE-NG</strong>
+
+                    <span>
+                        Security Labs
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="section reveal" id="contact">
+
+    <div class="container">
+
+        <div class="panel contact-panel">
+
+            <div class="section-number">
+                08 / CONTACT
+            </div>
+
+            <h2>
+                Let's investigate what comes next.
+            </h2>
+
+            <p>
+
+                I'm currently open to junior SOC,
+                security monitoring and entry-level
+                cybersecurity opportunities.
+
+            </p>
+
+
+            <div class="contact-links">
+
+
+                <a class="contact-link"
+                   href="mailto:mmfmas46@gmail.com">
+
+                    EMAIL ↗
+
+                </a>
+
+
+                <a class="contact-link"
+                   href="https://linkedin.com/in/mohamed-fawzy200"
+                   target="_blank"
+                   rel="noopener">
+
+                    LINKEDIN ↗
+
+                </a>
+
+
+                <button class="contact-link"
+                        id="copyEmail">
+
+                    COPY EMAIL
+
+                </button>
+
+
+                <button class="contact-link"
+                        id="copyPhone">
+
+                    COPY PHONE
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="container">
+
+        MOHAMED FAWZY · JUNIOR SOC ANALYST · 2026
+
+        <br><br>
+
+        <span>
+            Detect · Investigate · Respond
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   TYPING EFFECT
+========================= */
+
+(function(){
+
+    const text =
+        "Junior SOC Analyst — SIEM · Detection · Investigation";
+
+    const element =
+        document.getElementById("roleLine");
+
+    let index = 0;
+
+    function type(){
+
+        if(index <= text.length){
+
+            element.innerHTML =
+                text.slice(0,index) +
+                '<span class="cursor"></span>';
+
+            index++;
+
+            setTimeout(type,28);
+
+        }else{
+
+            element.innerHTML = text;
+
+        }
+
+    }
+
+    type();
+
+})();
+
+
+/* =========================
+   SCROLL BACKBONE
+========================= */
+
+(function(){
+
+    const fill =
+        document.getElementById("backboneFill");
+
+    function update(){
+
+        const scrollTop =
+            window.scrollY;
+
+        const documentHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        const percentage =
+            documentHeight > 0
+            ? Math.min(
+                100,
+                (scrollTop / documentHeight) * 100
+              )
+            : 0;
+
+        fill.style.height =
+            percentage + "%";
+
+    }
+
+    window.addEventListener(
+        "scroll",
+        update,
+        {passive:true}
+    );
+
+    window.addEventListener(
+        "resize",
+        update
+    );
+
+    update();
+
+})();
+
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
+(function(){
+
+    const elements =
+        document.querySelectorAll(".reveal");
+
+    const observer =
+        new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if(entry.isIntersecting){
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold:.12
+            }
+
+        );
+
+    elements.forEach(
+        element => observer.observe(element)
+    );
+
+})();
+
+
+/* =========================
+   COPY FUNCTION
+========================= */
+
+function copyText(
+    text,
+    button
+){
+
+    navigator.clipboard
+        .writeText(text)
+        .then(() => {
+
+            const original =
+                button.textContent;
+
+            button.textContent =
+                "COPIED ✓";
+
+            button.style.color =
+                "var(--green)";
+
+            button.style.borderColor =
+                "var(--green)";
+
+            setTimeout(() => {
+
+                button.textContent =
+                    original;
+
+                button.style.color = "";
+
+                button.style.borderColor = "";
+
+            },1400);
+
+        })
+        .catch(() => {
+
+            alert(
+                "Copy failed. Please copy it manually."
+            );
+
+        });
+
+}
+
+
+document
+    .getElementById("copyEmail")
+    .addEventListener(
+        "click",
+        function(){
+
+            copyText(
+                "mmfmas46@gmail.com",
+                this
+            );
+
+        }
+    );
+
+
+document
+    .getElementById("copyPhone")
+    .addEventListener(
+        "click",
+        function(){
+
+            copyText(
+                "+201090401197",
+                this
+            );
+
+        }
+    );
+
+
+/* =========================
+   ACTIVE NAVIGATION
+========================= */
+
+(function(){
+
+    const sections =
+        document.querySelectorAll(
+            "section[id]"
+        );
+
+    const links =
+        document.querySelectorAll(
+            ".nav-links a"
+        );
+
+    const observer =
+        new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if(entry.isIntersecting){
+
+                        links.forEach(link => {
+
+                            link.style.color =
+                                "var(--muted)";
+
+                            if(
+                                link.getAttribute("href")
+                                === "#" + entry.target.id
+                            ){
+
+                                link.style.color =
+                                    "var(--green)";
+
+                            }
+
+                        });
+
+                    }
+
+                });
+
+            },
+
+            {
+                rootMargin:"-30% 0px -60% 0px"
+            }
+
+        );
+
+    sections.forEach(
+        section => observer.observe(section)
+    );
+
+})();
+
+</script>
+
+</body>
+</html>
